@@ -54,7 +54,7 @@ func main() {
 		{"2", "Delhi", "India", "32,065,760"},
 		{"3", "Shanghai", "China", "28,516,904"},
 		{"4", "Dhaka", "Bangladesh", "22,478,116"},
-		{"5", "Sao Paulo", "Brazil", "22,429,800"},
+		{"5", "São Paulo", "Brazil", "22,429,800"},
 		{"6", "Mexico City", "Mexico", "22,085,140"},
 		{"7", "Cairo", "Egypt", "21,750,020"},
 		{"8", "Beijing", "China", "21,333,332"},
