@@ -1,6 +1,12 @@
 package main
 
-import tea "github.com/charmbracelet/bubbletea"
+import (
+	"log"
+
+	"github.com/charmbracelet/bubbles/timer"
+	"github.com/charmbracelet/bubbles/viewport"
+	tea "github.com/charmbracelet/bubbletea"
+)
 
 // this is an enum for Go
 type sessionState uint
@@ -12,6 +18,8 @@ const (
 
 type mainModel struct {
 	state sessionState
+	timer timer.Model
+	stats viewport.Model
 }
 
 func New() mainModel {
@@ -30,6 +38,10 @@ func (m mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg.String() == "ctrl+c" || msg.String() == "q" {
 			return m, tea.Quit
 		}
+		if msg.String() == "s" {
+			m.state = statsView
+			return m, nil
+		}
 	case tea.WindowSizeMsg:
 		// handle resizing windows
 		// handle your Msgs
@@ -40,8 +52,16 @@ func (m mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m mainModel) View() string {
 	switch m.state {
 	case statsView:
-		return statsView.View()
+		return m.stats.View()
 	default:
-		return "timer is " + timerView.View()
+		return "timer is " + m.timer.View()
+	}
+}
+
+func main() {
+	p := tea.NewProgram(New())
+
+	if err := p.Start(); err != nil {
+		log.Fatal(err)
 	}
 }
